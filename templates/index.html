@@ -1,24 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Streamrip Web</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-	<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
+
 <body>
     <div class="container">
-        <div class="header">
-            <h1>STREAMRIP WEB</h1>
-            <p class="subtitle">WEB GUI FOR STREAMRIP</p>
-        </div>
-        
-        <!-- URL Download Section -->
-        <div class="section url-section">
+        <!-- Search Section -->
+        <div class="section search-section">
+            <div class="section-header">
+                <h2>Search</h2>
+                <div class="divider"></div>
+            </div>
+
+            <div class="search-container">
+                <div class="input-group">
+                    <input type="text" id="searchInput" placeholder="Search for music...">
+                    <button onclick="searchMusic()">SEARCH</button>
+                </div>
+                <div class="search-options">
+                    <select id="searchSource">
+                        <option value="tidal">Tidal</option>
+                    </select>
+                    <div class="search-type-selector">
+                        <button class="search-type-btn active" onclick="setSearchType('album', this)">ALBUMS</button>
+                        <button class="search-type-btn" onclick="setSearchType('track', this)">TRACKS</button>
+                        <button class="search-type-btn" onclick="setSearchType('artist', this)">ARTISTS</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-controls">
+                <div class="pagination">
+                    <button id="prevPage" onclick="changePage(-1)" disabled>PREV</button>
+                    <span id="pageInfo">Page 1 of 1</span>
+                    <button id="nextPage" onclick="changePage(1)" disabled>NEXT</button>
+                </div>
+                <div class="results-info">
+                    <span id="resultsCount">0 results</span>
+                </div>
+            </div>
+
+            <div id="searchResults" class="search-results">
+                <div class="empty-state">ENTER A SEARCH QUERY ABOVE</div>
+            </div>
+
             <div class="section-header">
                 <h2>Download from URL</h2>
                 <div class="divider"></div>
@@ -34,53 +69,10 @@
                 <button id="downloadBtn" onclick="startDownload()">DOWNLOAD</button>
             </div>
         </div>
-        
-        <!-- Search Section -->
-        <div class="section search-section">
-            <div class="section-header">
-                <h2>Search</h2>
-                <div class="divider"></div>
-            </div>
-            
-            <div class="search-container">
-                <div class="search-options">
-                    <select id="searchSource">
-                        <option value="qobuz">Qobuz</option>
-                        <option value="tidal">Tidal</option>
-                        <option value="deezer">Deezer</option>
-                        <option value="soundcloud">SoundCloud</option>
-                    </select>
-                    <div class="search-type-selector">
-                        <button class="search-type-btn active" onclick="setSearchType('album', this)">ALBUMS</button>
-                        <button class="search-type-btn" onclick="setSearchType('track', this)">TRACKS</button>
-                        <button class="search-type-btn" onclick="setSearchType('artist', this)">ARTISTS</button>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <input type="text" id="searchInput" placeholder="Search for music...">
-                    <button onclick="searchMusic()">SEARCH</button>
-                </div>
-            </div>
-            
-            <div class="search-controls">
-                <div class="pagination">
-                    <button id="prevPage" onclick="changePage(-1)" disabled>PREV</button>
-                    <span id="pageInfo">Page 1 of 1</span>
-                    <button id="nextPage" onclick="changePage(1)" disabled>NEXT</button>
-                </div>
-                <div class="results-info">
-                    <span id="resultsCount">0 results</span>
-                </div>
-            </div>
 
-            <div id="searchResults" class="search-results">
-                <div class="empty-state">ENTER A SEARCH QUERY ABOVE</div>
-            </div>
-        </div>
-        
         <!-- Tabs Section -->
         <div class="section tabs-section">
-		            <div class="section-header">
+            <div class="section-header">
                 <h2>INFO</h2>
                 <div class="divider"></div>
             </div>
@@ -90,26 +82,26 @@
                 <button class="tab" onclick="switchTab('files', this)">FILES</button>
                 <button class="tab" onclick="switchTab('config', this)">CONFIG</button>
             </div>
-            
+
             <div id="activeTab" class="tab-content active">
                 <div id="activeDownloads">
                     <div class="empty-state">NO ACTIVE DOWNLOADS</div>
                 </div>
             </div>
-            
+
             <div id="historyTab" class="tab-content">
                 <div id="downloadHistory">
                     <div class="empty-state">NO DOWNLOAD HISTORY</div>
                 </div>
             </div>
-            
+
             <div id="filesTab" class="tab-content">
                 <button onclick="loadFiles()" class="secondary-btn">REFRESH FILES</button>
                 <div id="fileList" class="file-list">
                     <div class="empty-state">CLICK REFRESH TO LOAD FILES</div>
                 </div>
             </div>
-            
+
             <div id="configTab" class="tab-content">
                 <textarea id="configEditor" class="config-editor" placeholder="Loading config..."></textarea>
                 <div class="config-buttons">
@@ -119,7 +111,8 @@
             </div>
         </div>
     </div>
-    
+
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
+
 </html>

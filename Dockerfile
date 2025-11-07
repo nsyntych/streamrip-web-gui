@@ -19,9 +19,11 @@ WORKDIR /app
 RUN pip install --no-cache-dir \
     flask \
     flask-cors \
-    streamrip \
     gunicorn \
     gevent
+
+RUN pip install --no-cache-dir \
+    git+https://github.com/omnunum/streamrip.git@main
 
 # Copy application files
 COPY app.py /app/

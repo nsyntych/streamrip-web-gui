@@ -16,8 +16,8 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
-STREAMRIP_CONFIG = os.environ.get('STREAMRIP_CONFIG', '/config/config.toml') 
-DOWNLOAD_DIR = os.environ.get('DOWNLOAD_DIR', '/music') 
+STREAMRIP_CONFIG = os.environ.get('STREAMRIP_CONFIG', '/data/music/.config/streamrip/config.toml') 
+DOWNLOAD_DIR = os.environ.get('DOWNLOAD_DIR', '/data/music') 
 MAX_CONCURRENT_DOWNLOADS = int(os.environ.get('MAX_CONCURRENT_DOWNLOADS', '2')) 
 
 download_queue = queue.Queue()
@@ -264,7 +264,8 @@ def search_music():
         cmd.extend(['search', '--output-file', tmp_path])
         cmd.extend([source, search_type, query])
                 
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)             
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+        logger.info(result)
         results = []
         
         try:

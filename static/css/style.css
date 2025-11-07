@@ -547,6 +547,7 @@ button:disabled {
 .search-results {
     max-height: 500px;
     overflow-y: auto;
+    margin-bottom: 10px;
 }
 
 .search-result-item {
